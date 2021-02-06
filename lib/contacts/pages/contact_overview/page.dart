@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'cubit.dart';
 import 'package:randomContacts/app/cubit.dart';
 import 'package:randomContacts/user/models.dart';
+import '../contact_details/page.dart';
 
 //TODO: Import Lint
 
@@ -14,7 +15,7 @@ class _ContactOverviewPageState extends State<ContactOverviewPage>
     with StateWithCubit<ContactCubit, ContactState, ContactOverviewPage> {
   ContactCubit cubit = ContactCubit();
   List<User> currentContactList = [];
-  bool _isLoading = false;
+  bool _isLoading = true;
 
   @override
   void onCubitData(ContactState state) {
@@ -42,8 +43,14 @@ class _ContactOverviewPageState extends State<ContactOverviewPage>
               end: Alignment.bottomCenter,
               colors: [Colors.lightBlue, Colors.blue]),
         ),
-        child: ContactList(currentContactList),
+        child: _isLoading
+            ? Center(child: CircularProgressIndicator())
+            : ContactList(currentContactList),
       ),
+      floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.grey,
+          child: Icon(Icons.refresh),
+          onPressed: cubit.refreshUsers),
     );
   }
 }
@@ -58,26 +65,30 @@ class ContactList extends StatelessWidget {
     return ListView.builder(
         itemCount: contactList.length,
         itemBuilder: (context, idx) {
-          User contact = contactList[idx];
+          User user = contactList[idx];
           return ListTile(
-            title: Text(contact.email),
+            title: Text(user.firstName + ' ' + user.lastName),
+            subtitle: Text(user.email),
+            leading: ImageIcon(user.thumbnail),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => UserDetailsPage(user)),
+              );
+            },
           );
         });
   }
 }
 
-//lass Contact extends StatelessWidget {
-// const Contact({
-//   @required this.name,
-//   @required this.email,
-// })  : assert(name != null),
-//       assert(email != null);
-//
-// final String name;
-// final String email;
-//
-// @override
-// Widget build(BuildContext context) {
-//   return Column();
-// }
-//
+class ImageIcon extends StatelessWidget {
+  const ImageIcon(this.pictureLink);
+  final String pictureLink;
+
+  @override
+  Widget build(BuildContext context) {
+    return CircleAvatar(
+        radius: 35, backgroundImage: Image.network(pictureLink).image);
+    //AssetImage('assets/images/spongebob.jpg'));
+  }
+}

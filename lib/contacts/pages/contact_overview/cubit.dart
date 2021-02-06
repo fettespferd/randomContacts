@@ -7,15 +7,16 @@ part 'cubit.freezed.dart';
 
 class ContactCubit extends Cubit<ContactState> {
   ContactCubit() : super(ContactState.initial()) {
-    _loadUsers();
+    refreshUsers();
   }
 
   List<User> currentContactList = [];
   User currentUser;
 
-  void _loadUsers() async {
+  void refreshUsers() async {
     emit(ContactState.loading());
-    var dataFromAPI = await http.get("https://randomuser.me/api/?results=10");
+    currentContactList.clear();
+    var dataFromAPI = await http.get("https://randomuser.me/api/?results=20");
     var jsonData = json.decode(dataFromAPI.body);
     for (var user in jsonData['results']) {
       currentContactList.add(User.fromJson(user));
