@@ -13,6 +13,7 @@ class ContactCubit extends Cubit<ContactState> {
 
   List<User> currentContactList = [];
 
+  //Method for retrieving Users from the RandomUser-API
   Future<void> refreshUsers() async {
     emit(ContactState.loading());
 
@@ -27,6 +28,7 @@ class ContactCubit extends Cubit<ContactState> {
     emit(ContactState.success(currentContactList));
   }
 
+  //Method for sorting the users in alphabetical order
   Future<void> sortUsers() async {
     emit(ContactState.loading());
     Comparator<User> alphabeticalComparator;

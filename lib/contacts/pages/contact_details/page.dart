@@ -34,6 +34,7 @@ class UserDetailsPage extends StatelessWidget {
   }
 }
 
+//Widget for displaying the information of the current user
 class InformationCard extends StatelessWidget {
   const InformationCard(this.user, {Key key}) : super(key: key);
 
@@ -102,6 +103,7 @@ class InformationCard extends StatelessWidget {
   }
 }
 
+//Row Widget to display specific detail Information with Icon
 class DetailInformation extends StatelessWidget {
   const DetailInformation({this.icon, this.information});
 
