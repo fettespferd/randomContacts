@@ -127,7 +127,7 @@ class CustomActionButton extends StatelessWidget {
         SpeedDialChild(
           child: Icon(Icons.sort_by_alpha),
           backgroundColor: Colors.white,
-          label: 'Sort',
+          label: 'Sort alphabetically',
           labelStyle: TextStyle(fontSize: 18),
           onTap: cubit.sortUsers,
         ),

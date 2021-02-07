@@ -9,7 +9,7 @@ import 'package:flutter/widgets.dart';
 /// [C]). You can then override [onCubitData] to get notified of cubit state
 /// changes (type [S]).
 ///
-/// See the state of the sign-in page for an example implementation.
+/// See the state of the contact_overview page for an example implementation.
 mixin StateWithCubit<C extends Cubit<S>, S, W extends StatefulWidget>
     on State<W> {
   @protected
