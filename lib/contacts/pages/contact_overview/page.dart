@@ -41,7 +41,7 @@ class _ContactOverviewPageState extends State<ContactOverviewPage>
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [Colors.lightBlue, Colors.blue]),
+              colors: [Colors.lightBlue[300], Colors.lightBlue[100]]),
         ),
         child: _isLoading
             ? Center(child: CircularProgressIndicator())
@@ -89,6 +89,5 @@ class ImageIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircleAvatar(
         radius: 35, backgroundImage: Image.network(pictureLink).image);
-    //AssetImage('assets/images/spongebob.jpg'));
   }
 }
