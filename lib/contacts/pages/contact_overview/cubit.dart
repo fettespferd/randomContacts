@@ -1,7 +1,8 @@
-import 'package:randomContacts/app/module.dart';
-import 'package:http/http.dart' as http;
-import 'package:randomContacts/user/models.dart';
 import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+import 'package:randomContacts/app/module.dart';
+import 'package:randomContacts/user/models.dart';
 
 part 'cubit.freezed.dart';
 
@@ -11,16 +12,26 @@ class ContactCubit extends Cubit<ContactState> {
   }
 
   List<User> currentContactList = [];
-  User currentUser;
 
-  void refreshUsers() async {
+  Future<void> refreshUsers() async {
     emit(ContactState.loading());
+
+    //Clear current ContactList and retrieve new contacts
     currentContactList.clear();
-    var dataFromAPI = await http.get("https://randomuser.me/api/?results=20");
-    var jsonData = json.decode(dataFromAPI.body);
-    for (var user in jsonData['results']) {
-      currentContactList.add(User.fromJson(user));
-    }
+    final dataFromAPI = await http.get('https://randomuser.me/api/?results=20');
+    final jsonData = json.decode(dataFromAPI.body) as Map<String, dynamic>;
+    final userList = jsonData['results'] as List;
+    currentContactList = userList
+        .map((dynamic user) => User.fromJson(user as Map<String, dynamic>))
+        .toList();
+    emit(ContactState.success(currentContactList));
+  }
+
+  Future<void> sortUsers() async {
+    emit(ContactState.loading());
+    Comparator<User> alphabeticalComparator;
+    alphabeticalComparator = (a, b) => a.firstName.compareTo(b.firstName);
+    currentContactList.sort(alphabeticalComparator);
     emit(ContactState.success(currentContactList));
   }
 }

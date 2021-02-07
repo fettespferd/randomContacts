@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:randomContacts/user/models.dart';
+import 'package:randomContacts/app/module.dart';
 
 class UserDetailsPage extends StatelessWidget {
-  const UserDetailsPage(this.user) : assert(User != null);
+  const UserDetailsPage(this.user) : assert(user != null);
 
   final User user;
 
@@ -10,18 +9,26 @@ class UserDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors: [Colors.lightBlue[300], Colors.lightBlue[100]],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter)),
+        gradient: LinearGradient(
+            colors: [Colors.lightBlue[300], Colors.lightBlue[100]],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter),
+      ),
       child: Padding(
         padding: const EdgeInsets.only(top: 50, left: 10, right: 10),
-        child: Stack(alignment: AlignmentDirectional.topCenter, children: [
-          Positioned(top: 60, child: InformationCard(user)),
-          ClipRRect(
+        child: Stack(
+          alignment: AlignmentDirectional.topCenter,
+          children: [
+            Positioned(
+              top: 60,
+              child: InformationCard(user),
+            ),
+            ClipRRect(
               borderRadius: BorderRadius.circular(40),
-              child: Image.network(user.largePicture)),
-        ]),
+              child: Image.network(user.largePicture),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -33,26 +40,28 @@ class InformationCard extends StatelessWidget {
   final User user;
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
+    final width = MediaQuery.of(context).size.width;
     return Card(
       color: Colors.white70,
       elevation: 20,
       child: Padding(
         padding: const EdgeInsets.only(
-          top: 75,
+          top: 80,
           left: 15,
           right: 15,
           bottom: 15,
         ),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Wrap(
-              children: [
-                Text(user.firstName, style: TextStyle(fontSize: width * 0.1)),
-                SizedBox(width: 10),
-                Text(user.lastName, style: TextStyle(fontSize: width * 0.1))
-              ],
+            // ignore: sized_box_for_whitespace
+            Container(
+              width: 0.8 * width,
+              child: Text(
+                '${user.firstName} ${user.lastName}',
+                style: TextStyle(fontSize: width * 0.09),
+              ),
             ),
             SizedBox(
               height: 10,
@@ -100,7 +109,7 @@ class DetailInformation extends StatelessWidget {
   final String information;
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
+    final width = MediaQuery.of(context).size.width;
 
     return Row(
       children: [
