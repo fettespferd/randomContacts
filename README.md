@@ -3,7 +3,7 @@ A small Flutter project of a "Random Users Contact Book" using [randomuser.me](h
 
 ## Overview
 
-<img src="/screenshots/preview.gif">
+<img src="/screenshots/preview.gif" height="450em">
 
 It is an app with some cool UI. Details of users are fetched from https://randomuser.me/.
 
