@@ -31,6 +31,7 @@ class ContactCubit extends Cubit<ContactState> {
   //Method for sorting the users in alphabetical order
   Future<void> sortUsers() async {
     emit(ContactState.loading());
+    //Create Comparator
     Comparator<User> alphabeticalComparator;
     alphabeticalComparator = (firstUser, secondUser) =>
         firstUser.firstName.compareTo(secondUser.firstName);
