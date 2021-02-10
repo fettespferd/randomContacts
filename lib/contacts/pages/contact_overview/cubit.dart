@@ -11,6 +11,7 @@ class ContactCubit extends Cubit<ContactState> {
     refreshUsers();
   }
 
+  //Current List of all contacts
   List<User> currentContactList = [];
 
   //Method for retrieving Users from the RandomUser-API
